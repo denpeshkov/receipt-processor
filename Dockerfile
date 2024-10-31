@@ -19,3 +19,9 @@ COPY . .
 RUN --mount=type=cache,target=${GOMODCACHE} \
     --mount=type=cache,target=${GOCACHE} \
     CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build ./...
+
+FROM scratch AS processor
+WORKDIR /app
+COPY --from=build /go/bin/receipt_processor .
+EXPOSE 8080
+ENTRYPOINT [ "./processor", "-addr=:8080" ]
