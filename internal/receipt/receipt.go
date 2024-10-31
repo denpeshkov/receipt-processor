@@ -31,6 +31,7 @@ func (r Receipt) String() string {
 	return fmt.Sprintf("{%q %s $%.2f %s}", r.Retailer, r.Timestamp.Format("2006-01-02 15:04"), float64(r.Total)/100, r.Items)
 }
 
+// Points calculates the total number of points awarded for a receipt.
 func (r *Receipt) Points() int {
 	var points int
 
